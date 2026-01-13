@@ -1,4 +1,5 @@
 import { Code2, Palette, Zap } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const highlights = [
   {
@@ -19,16 +20,18 @@ const highlights = [
 ];
 
 const About = () => {
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.15 });
+
   return (
-    <section id="about" className="bg-secondary/30">
+    <section id="about" className="bg-secondary/30" ref={ref}>
       <div className="section-container">
         {/* Section header */}
-        <div className="text-center mb-12">
+        <div className={`text-center mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <p className="text-accent font-medium mb-2">About Me</p>
           <h2 className="section-title">Passionate about building for the web</h2>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className={`grid lg:grid-cols-2 gap-12 items-center transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           {/* Text content */}
           <div>
             <p className="text-lg text-muted-foreground mb-6 leading-relaxed">

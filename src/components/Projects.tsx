@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ProjectCard from "./ProjectCard";
 import ProjectDetailModal, { ProjectDetail } from "./ProjectDetailModal";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const projects: ProjectDetail[] = [
   {
@@ -64,6 +65,7 @@ const projects: ProjectDetail[] = [
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<ProjectDetail | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.1 });
 
   const handleProjectClick = (project: ProjectDetail) => {
     setSelectedProject(project);
@@ -71,10 +73,10 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="bg-background">
+    <section id="projects" className="bg-background" ref={ref}>
       <div className="section-container">
         {/* Section header */}
-        <div className="text-center mb-12">
+        <div className={`text-center mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <p className="text-accent font-medium mb-2">My Work</p>
           <h2 className="section-title">Featured Projects</h2>
           <p className="section-subtitle max-w-2xl mx-auto">
@@ -88,11 +90,8 @@ const Projects = () => {
           {projects.map((project, index) => (
             <div
               key={project.title}
-              className="opacity-0 animate-slide-up"
-              style={{
-                animationDelay: `${index * 100}ms`,
-                animationFillMode: "forwards",
-              }}
+              className={`transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              style={{ transitionDelay: `${200 + index * 100}ms` }}
             >
               <ProjectCard
                 {...project}

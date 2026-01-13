@@ -6,6 +6,7 @@ import {
   Layers,
   Zap 
 } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const skills = [
   {
@@ -41,11 +42,13 @@ const skills = [
 ];
 
 const Skills = () => {
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.15 });
+
   return (
-    <section id="skills" className="bg-secondary/30">
+    <section id="skills" className="bg-secondary/30" ref={ref}>
       <div className="section-container">
         {/* Section header */}
-        <div className="text-center mb-12">
+        <div className={`text-center mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <p className="text-accent font-medium mb-2">What I Do</p>
           <h2 className="section-title">Skills & Technologies</h2>
           <p className="section-subtitle max-w-2xl mx-auto">
@@ -59,8 +62,8 @@ const Skills = () => {
           {skills.map((skill, index) => (
             <div
               key={skill.category}
-              className="bg-card p-6 rounded-xl border border-border card-hover opacity-0 animate-fade-in"
-              style={{ animationDelay: `${index * 100}ms`, animationFillMode: 'forwards' }}
+              className={`bg-card p-6 rounded-xl border border-border card-hover transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              style={{ transitionDelay: `${200 + index * 100}ms` }}
             >
               {/* Category header */}
               <div className="flex items-center gap-3 mb-4">

@@ -1,4 +1,5 @@
 import { Code, Palette, Globe, Cpu } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const services = [
   {
@@ -24,11 +25,13 @@ const services = [
 ];
 
 const Services = () => {
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.15 });
+
   return (
-    <section id="services" className="py-20 bg-muted/30">
+    <section id="services" className="py-20 bg-muted/30" ref={ref}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground mb-4">
             What I Can Help You With
           </h2>
@@ -42,8 +45,8 @@ const Services = () => {
           {services.map((service, index) => (
             <div
               key={service.title}
-              className="group p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-elegant transition-all duration-300"
-              style={{ animationDelay: `${index * 100}ms` }}
+              className={`group p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-elegant transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              style={{ transitionDelay: `${300 + index * 100}ms` }}
             >
               <div className="flex items-start gap-4">
                 <div className="p-3 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">

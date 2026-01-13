@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Mail, Send, Github, Linkedin, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -31,12 +32,14 @@ const Contact = () => {
     setIsSubmitting(false);
   };
 
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.15 });
+
   return (
-    <section id="contact" className="bg-background">
+    <section id="contact" className="bg-background" ref={ref}>
       <div className="section-container">
         <div className="max-w-4xl mx-auto">
           {/* Section header */}
-          <div className="text-center mb-12">
+          <div className={`text-center mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             <p className="text-accent font-medium mb-2">Get In Touch</p>
             <h2 className="section-title">Let's Work Together</h2>
             <p className="section-subtitle max-w-xl mx-auto">
@@ -45,7 +48,7 @@ const Contact = () => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-5 gap-12">
+          <div className={`grid lg:grid-cols-5 gap-12 transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
             {/* Contact form */}
             <form onSubmit={handleSubmit} className="lg:col-span-3 space-y-6">
               <div className="grid sm:grid-cols-2 gap-6">
