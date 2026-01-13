@@ -7,6 +7,7 @@ interface ProjectCardProps {
   liveUrl?: string;
   githubUrl?: string;
   image?: string;
+  onClick?: () => void;
 }
 
 const ProjectCard = ({
@@ -16,9 +17,26 @@ const ProjectCard = ({
   liveUrl,
   githubUrl,
   image,
+  onClick,
 }: ProjectCardProps) => {
+  const handleLinkClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
   return (
-    <article className="group bg-card rounded-xl border border-border overflow-hidden card-hover">
+    <article
+      className="group bg-card rounded-xl border border-border overflow-hidden card-hover cursor-pointer"
+      onClick={onClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick?.();
+        }
+      }}
+      aria-label={`View details for ${title} project`}
+    >
       {/* Project image/placeholder */}
       <div className="aspect-video bg-secondary relative overflow-hidden">
         {image ? (
@@ -34,28 +52,9 @@ const ProjectCard = ({
         )}
         {/* Overlay on hover */}
         <div className="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-          {liveUrl && (
-            <a
-              href={liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-12 h-12 flex items-center justify-center rounded-full bg-accent text-accent-foreground hover:scale-110 transition-transform"
-              aria-label={`View ${title} live demo`}
-            >
-              <ExternalLink size={20} />
-            </a>
-          )}
-          {githubUrl && (
-            <a
-              href={githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-12 h-12 flex items-center justify-center rounded-full bg-card text-foreground hover:scale-110 transition-transform"
-              aria-label={`View ${title} source code`}
-            >
-              <Github size={20} />
-            </a>
-          )}
+          <span className="text-primary-foreground font-medium text-sm bg-accent px-4 py-2 rounded-full">
+            Click for details
+          </span>
         </div>
       </div>
 
@@ -69,8 +68,8 @@ const ProjectCard = ({
         </p>
 
         {/* Tech stack */}
-        <div className="flex flex-wrap gap-2">
-          {tech.map((item) => (
+        <div className="flex flex-wrap gap-2 mb-4">
+          {tech.slice(0, 3).map((item) => (
             <span
               key={item}
               className="text-xs font-medium px-2 py-1 rounded bg-secondary text-secondary-foreground"
@@ -78,6 +77,39 @@ const ProjectCard = ({
               {item}
             </span>
           ))}
+          {tech.length > 3 && (
+            <span className="text-xs font-medium px-2 py-1 rounded bg-secondary text-secondary-foreground">
+              +{tech.length - 3}
+            </span>
+          )}
+        </div>
+
+        {/* Quick links */}
+        <div className="flex gap-3">
+          {liveUrl && liveUrl !== "#" && (
+            <a
+              href={liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleLinkClick}
+              className="text-muted-foreground hover:text-accent transition-colors"
+              aria-label={`View ${title} live demo`}
+            >
+              <ExternalLink size={18} />
+            </a>
+          )}
+          {githubUrl && githubUrl !== "#" && (
+            <a
+              href={githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleLinkClick}
+              className="text-muted-foreground hover:text-accent transition-colors"
+              aria-label={`View ${title} source code`}
+            >
+              <Github size={18} />
+            </a>
+          )}
         </div>
       </div>
     </article>
