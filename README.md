@@ -4,8 +4,8 @@ This is my personal front-end portfolio website built to showcase selected proje
 The site focuses on clean UI, responsiveness, and clear presentation of real-world work.
 
 ## Live Website
-🔗 https://YOUR-VERCEL-LINK.vercel.app  
-*(replace with your actual Vercel URL)*
+🔗 https://nwankwo-dave-portfolio.vercel.app/ 
+
 
 ## Overview
 The portfolio highlights my work across:
