@@ -1,64 +1,41 @@
 import { useState } from "react";
-import ProjectCard from "./ProjectCard";
 import ProjectDetailModal, { ProjectDetail } from "./ProjectDetailModal";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { Target, Lightbulb, Trophy, ArrowRight } from "lucide-react";
 
 const projects: ProjectDetail[] = [
   {
-    title: "Twin Villa Dine",
-    description:
-      "A modern hospitality website featuring elegant design, seamless navigation, and responsive layouts for an upscale dining experience.",
-    tech: ["HTML", "CSS", "JavaScript", "Responsive Design"],
+    title: "Teamsource Website Optimization",
+    description: "Full-scope website performance optimization including SEO, speed improvements, and paid media integration for a growing team.",
+    tech: ["WordPress", "Google Ads", "Meta Ads", "GA4", "Google Search Console", "GTM", "n8n"],
     liveUrl: "#",
     githubUrl: "#",
-    problem:
-      "The client needed a sophisticated online presence that would reflect the upscale nature of their dining establishment while providing an intuitive user experience for reservations and menu browsing.",
-    solution:
-      "Developed a visually stunning, mobile-first website with smooth animations, an interactive menu section, and a streamlined reservation system. Focused on fast load times and accessibility.",
-    result:
-      "Delivered a fully responsive website that increased online reservations by 40% and received positive feedback from customers for its ease of use and elegant design.",
+    role: "Web Performance & Paid Media Specialist",
+    problem: "The company's website had slow load times, poor search visibility, and no structured lead generation system — resulting in missed growth opportunities.",
+    solution: "Conducted a full technical audit, optimized site speed and on-page SEO, set up Google Analytics & Search Console, launched targeted Google and Meta ad campaigns, and built automated lead nurturing workflows with n8n.",
+    result: "Improved website traffic by 35%, generated 50+ qualified leads through paid campaigns, and established a repeatable system for ongoing lead acquisition and nurturing.",
   },
   {
-    title: "Lead Qualification AI Response System",
-    description:
-      "An AI-powered automation demo that streamlines lead qualification processes with intelligent response generation and workflow optimization.",
-    tech: ["JavaScript", "AI/ML", "API Integration", "Automation"],
+    title: "Paid Ads Lead Generation",
+    description: "Strategic paid media campaigns across Google and Meta platforms designed to drive qualified leads and maximize ROAS.",
+    tech: ["Google Ads", "Meta Ads", "GA4", "Google Tag Manager", "ClickFunnels", "HubSpot"],
     liveUrl: "#",
     githubUrl: "#",
-    problem:
-      "Sales teams were spending excessive time manually qualifying leads and crafting personalized responses, leading to slower response times and missed opportunities.",
-    solution:
-      "Built an intelligent automation system that analyzes incoming leads, scores them based on predefined criteria, and generates personalized responses using AI. Integrated with existing CRM workflows.",
-    result:
-      "Reduced lead response time by 75% and improved lead-to-customer conversion rates. The system now handles initial qualification for hundreds of leads daily.",
+    role: "Paid Media Specialist",
+    problem: "The client was spending on ads without proper tracking, optimization, or landing page strategy — leading to high cost-per-lead and low conversion rates.",
+    solution: "Rebuilt campaign structure with proper audience segmentation, conversion tracking via GTM, optimized landing pages, A/B tested ad creatives, and implemented CRM integration for lead follow-up.",
+    result: "Reduced cost-per-lead by 40%, increased conversion rate on landing pages, and built a scalable paid acquisition funnel with clear attribution and ROI tracking.",
   },
   {
-    title: "FAQs Accordion",
-    description:
-      "An interactive JavaScript component featuring smooth animations, accessibility support, and clean design patterns for FAQ sections.",
-    tech: ["JavaScript", "CSS Animations", "HTML", "Accessibility"],
+    title: "AI-Powered Instagram Content System",
+    description: "An AI-driven content production system for Kavara Digital, streamlining Instagram content creation from ideation to publishing.",
+    tech: ["AI/ML", "Meta Business Suite", "Canva", "Buffer", "Content Strategy", "Prompt Engineering"],
     liveUrl: "#",
     githubUrl: "#",
-    problem:
-      "Many websites have cluttered FAQ sections that are difficult to navigate, especially on mobile devices, and often lack proper accessibility features.",
-    solution:
-      "Created a reusable, lightweight accordion component with smooth expand/collapse animations, keyboard navigation support, and ARIA attributes for screen reader compatibility.",
-    result:
-      "The component is now used across multiple projects, improving user engagement with FAQ content and receiving excellent accessibility audit scores.",
-  },
-  {
-    title: "Kingfisher Inn",
-    description:
-      "A custom WordPress website for a hospitality client, featuring booking integration, responsive design, and optimized performance.",
-    tech: ["WordPress", "PHP", "CSS", "SEO"],
-    liveUrl: "#",
-    githubUrl: "#",
-    problem:
-      "The inn's previous website was outdated, slow, and lacked mobile responsiveness. Guests couldn't easily book rooms or find essential information.",
-    solution:
-      "Designed and developed a custom WordPress theme with integrated booking functionality, optimized images, and a clean content structure focused on driving conversions.",
-    result:
-      "Achieved a 60% improvement in page load speed, significantly boosted mobile traffic engagement, and increased direct bookings through the website.",
+    role: "AI Content Systems Architect",
+    problem: "Content production was manual, inconsistent, and slow — the team couldn't keep up with the volume and quality needed for multiple client accounts.",
+    solution: "Designed AI-powered prompt workflows for generating captions, hooks, content angles, and campaign ideas. Built a systematized content pipeline from ideation to scheduling.",
+    result: "Dramatically improved content production speed and consistency. The system now powers scalable content operations across multiple agency client accounts.",
   },
 ];
 
@@ -73,48 +50,74 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="bg-background" ref={ref}>
+    <section id="projects" className="relative" ref={ref}>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
+
       <div className="section-container">
-        {/* Section header */}
-        <div className={`text-center mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <p className="text-accent font-medium mb-2">My Work</p>
-          <h2 className="section-title">Featured Projects</h2>
-          <p className="section-subtitle max-w-2xl mx-auto">
-            A selection of projects that showcase my skills in front-end
-            development, from interactive components to full websites.
+        <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <p className="section-label">
+            <span className="w-8 h-px bg-accent inline-block" />
+            Case Studies
+          </p>
+          <h2 className="section-title">Featured Work</h2>
+          <p className="section-subtitle max-w-2xl mx-auto mt-4">
+            Real projects with measurable outcomes — from website optimization to AI-powered content systems.
           </p>
         </div>
 
-        {/* Projects grid */}
-        <div className="grid sm:grid-cols-2 gap-6 lg:gap-8">
+        <div className="grid gap-6 max-w-4xl mx-auto">
           {projects.map((project, index) => (
             <div
               key={project.title}
-              className={`transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              onClick={() => handleProjectClick(project)}
+              className={`group relative p-6 md:p-8 rounded-2xl bg-card border border-border hover:border-accent/30 card-hover cursor-pointer transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
               style={{ transitionDelay: `${200 + index * 100}ms` }}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => { if (e.key === "Enter") handleProjectClick(project); }}
+              aria-label={`View case study: ${project.title}`}
             >
-              <ProjectCard
-                {...project}
-                onClick={() => handleProjectClick(project)}
-              />
+              {/* Top row */}
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <p className="text-xs text-accent font-medium mb-1">{project.role}</p>
+                  <h3 className="font-display font-bold text-xl text-foreground group-hover:text-accent transition-colors">
+                    {project.title}
+                  </h3>
+                </div>
+                <ArrowRight size={20} className="text-muted-foreground group-hover:text-accent group-hover:translate-x-1 transition-all mt-1" />
+              </div>
+
+              <p className="text-sm text-muted-foreground mb-5 leading-relaxed">
+                {project.description}
+              </p>
+
+              {/* Quick preview of challenge/result */}
+              <div className="grid sm:grid-cols-2 gap-4 mb-5">
+                <div className="flex items-start gap-2.5">
+                  <Target size={14} className="text-accent mt-0.5 flex-shrink-0" />
+                  <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">{project.problem}</p>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <Trophy size={14} className="text-accent mt-0.5 flex-shrink-0" />
+                  <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">{project.result}</p>
+                </div>
+              </div>
+
+              {/* Tech */}
+              <div className="flex flex-wrap gap-2">
+                {project.tech.slice(0, 5).map((item) => (
+                  <span key={item} className="skill-badge text-xs">{item}</span>
+                ))}
+                {project.tech.length > 5 && (
+                  <span className="skill-badge text-xs">+{project.tech.length - 5}</span>
+                )}
+              </div>
             </div>
           ))}
         </div>
-
-        {/* More projects link */}
-        <div className="text-center mt-12">
-          <a
-            href="https://github.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-outline-hero"
-          >
-            View More on GitHub
-          </a>
-        </div>
       </div>
 
-      {/* Project Detail Modal */}
       <ProjectDetailModal
         project={selectedProject}
         open={modalOpen}

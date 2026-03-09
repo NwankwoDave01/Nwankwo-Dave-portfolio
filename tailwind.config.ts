@@ -16,6 +16,7 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         display: ['Space Grotesk', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -72,6 +73,8 @@ export default {
         'card': 'var(--shadow-md)',
         'card-hover': 'var(--shadow-xl)',
         'accent': 'var(--shadow-accent)',
+        'glow': 'var(--glow-accent)',
+        'glow-strong': 'var(--glow-accent-strong)',
       },
       keyframes: {
         "accordion-down": {
@@ -98,6 +101,14 @@ export default {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
         },
+        "pulse-glow": {
+          "0%, 100%": { opacity: "0.4" },
+          "50%": { opacity: "0.8" },
+        },
+        "gradient-shift": {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -106,6 +117,8 @@ export default {
         "fade-in-left": "fade-in-left 0.6s ease-out forwards",
         "slide-up": "slide-up 0.8s ease-out forwards",
         "float": "float 3s ease-in-out infinite",
+        "pulse-glow": "pulse-glow 3s ease-in-out infinite",
+        "gradient-shift": "gradient-shift 6s ease infinite",
       },
     },
   },
