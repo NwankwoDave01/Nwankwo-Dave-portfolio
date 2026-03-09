@@ -1,77 +1,92 @@
-import { ArrowDown, Github, Linkedin } from "lucide-react";
+import { ArrowDown, Linkedin, Mail, MapPin } from "lucide-react";
 
 const Hero = () => {
   return (
     <section className="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden">
-      {/* Background decorative elements */}
+      {/* Background effects */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-20 right-10 w-72 h-72 bg-accent/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+        <div className="absolute inset-0 grid-pattern opacity-40" />
+        <div className="glow-orb w-[500px] h-[500px] top-[-100px] right-[-100px]" style={{ background: 'hsl(195 100% 55%)' }} />
+        <div className="glow-orb w-[400px] h-[400px] bottom-[-50px] left-[-100px]" style={{ background: 'hsl(270 80% 65%)' }} />
+        <div className="glow-orb w-[300px] h-[300px] top-[40%] left-[50%] animate-pulse-glow" style={{ background: 'hsl(195 100% 55%)' }} />
       </div>
 
-      <div className="section-container text-center">
-        {/* Greeting badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary text-secondary-foreground text-sm font-medium mb-6 opacity-0 animate-fade-in">
-          <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-          Available for new projects
+      <div className="section-container text-center max-w-5xl">
+        {/* Status badge */}
+        <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-card text-sm font-medium mb-8 opacity-0 animate-fade-in">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+          </span>
+          <span className="text-muted-foreground">Available for Remote Opportunities</span>
         </div>
 
         {/* Main heading */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-display text-foreground mb-6 opacity-0 animate-fade-in animate-delay-100">
-          Hi, I'm <span className="gradient-text">Dave Nwankwo</span>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-display tracking-tight text-foreground mb-6 opacity-0 animate-fade-in animate-delay-100">
+          Nwankwo Ebuka{" "}
+          <span className="gradient-text">Dave</span>
         </h1>
 
         {/* Title */}
-        <p className="text-xl sm:text-2xl md:text-3xl text-muted-foreground font-medium mb-4 opacity-0 animate-fade-in animate-delay-200">
-          Front-End Developer
+        <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground font-medium mb-3 opacity-0 animate-fade-in animate-delay-200">
+          Web Performance · Paid Media · Marketing Automation
         </p>
 
         {/* Subtitle */}
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8 opacity-0 animate-fade-in animate-delay-300">
-          UI & Web Automation Enthusiast crafting beautiful, responsive, and 
-          user-friendly web experiences with modern technologies.
+        <p className="text-base text-muted-foreground/80 max-w-2xl mx-auto mb-4 leading-relaxed opacity-0 animate-fade-in animate-delay-300">
+          I optimize websites, improve search visibility, manage paid campaigns, 
+          and build automation systems that help businesses grow faster.
         </p>
 
+        {/* Location */}
+        <div className="flex items-center justify-center gap-1.5 text-sm text-muted-foreground/60 mb-10 opacity-0 animate-fade-in animate-delay-300">
+          <MapPin size={14} />
+          <span>Lagos, Nigeria · Open to Remote</span>
+        </div>
+
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 opacity-0 animate-fade-in animate-delay-400">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6 opacity-0 animate-fade-in animate-delay-400">
           <a href="#projects" className="btn-hero">
-            View My Work
-            <ArrowDown size={18} />
+            View Case Studies
+            <ArrowDown size={16} />
           </a>
           <a href="#contact" className="btn-outline-hero">
-            Get In Touch
+            Let's Work Together
           </a>
         </div>
 
+        {/* Trust microcopy */}
+        <p className="text-xs text-muted-foreground/50 mb-12 opacity-0 animate-fade-in animate-delay-400">
+          Trusted by startups and agencies · Results-driven approach
+        </p>
+
         {/* Social Links */}
-        <div className="flex items-center justify-center gap-6 opacity-0 animate-fade-in animate-delay-400">
+        <div className="flex items-center justify-center gap-4 opacity-0 animate-fade-in animate-delay-500">
           <a
-            href="https://github.com/"
+            href="https://www.linkedin.com/in/nwankwo-dave-e6"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-muted-foreground hover:text-accent transition-colors duration-200"
-            aria-label="GitHub"
-          >
-            <Github size={24} />
-          </a>
-          <a
-            href="https://linkedin.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted-foreground hover:text-accent transition-colors duration-200"
+            className="w-10 h-10 flex items-center justify-center rounded-xl glass-card text-muted-foreground hover:text-accent hover:border-accent/30 transition-all duration-300"
             aria-label="LinkedIn"
           >
-            <Linkedin size={24} />
+            <Linkedin size={18} />
+          </a>
+          <a
+            href="mailto:ebukadave2009@gmail.com"
+            className="w-10 h-10 flex items-center justify-center rounded-xl glass-card text-muted-foreground hover:text-accent hover:border-accent/30 transition-all duration-300"
+            aria-label="Email"
+          >
+            <Mail size={18} />
           </a>
         </div>
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 animate-fade-in animate-delay-400">
-        <div className="flex flex-col items-center gap-2 text-muted-foreground">
-          <span className="text-sm">Scroll</span>
-          <div className="w-6 h-10 border-2 border-muted-foreground/30 rounded-full flex justify-center">
-            <div className="w-1.5 h-3 bg-accent rounded-full mt-2 animate-bounce" />
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 animate-fade-in animate-delay-500">
+        <div className="flex flex-col items-center gap-2 text-muted-foreground/40">
+          <span className="text-xs tracking-widest uppercase">Scroll</span>
+          <div className="w-5 h-8 border border-muted-foreground/20 rounded-full flex justify-center">
+            <div className="w-1 h-2.5 bg-accent rounded-full mt-1.5 animate-bounce" />
           </div>
         </div>
       </div>

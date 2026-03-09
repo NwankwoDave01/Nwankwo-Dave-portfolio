@@ -1,43 +1,25 @@
-import { 
-  Code, 
-  Palette, 
-  Database, 
-  Globe, 
-  Layers,
-  Zap 
-} from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
-const skills = [
+const skillCategories = [
   {
-    category: "Core Technologies",
-    icon: Code,
-    items: ["HTML5", "CSS3", "JavaScript (ES6+)", "TypeScript"],
+    category: "Web & Development",
+    items: ["HTML", "CSS", "JavaScript", "React", "WordPress", "Shopify"],
   },
   {
-    category: "Frameworks & Libraries",
-    icon: Layers,
-    items: ["React", "TailwindCSS", "Bootstrap", "jQuery"],
+    category: "Paid Media",
+    items: ["Google Ads", "Meta Ads", "ClickFunnels", "Systeme.io"],
   },
   {
-    category: "CMS & Platforms",
-    icon: Globe,
-    items: ["WordPress", "Elementor", "Shopify", "Webflow"],
+    category: "Analytics & SEO",
+    items: ["GA4", "Google Search Console", "Google Tag Manager"],
   },
   {
-    category: "Design & UI",
-    icon: Palette,
-    items: ["Figma", "Responsive Design", "CSS Animations", "UI/UX"],
+    category: "CRM & Automation",
+    items: ["HubSpot", "Zoho CRM", "Salesforce", "n8n"],
   },
   {
-    category: "Tools & Workflow",
-    icon: Database,
-    items: ["Git & GitHub", "VS Code", "npm/yarn", "REST APIs"],
-  },
-  {
-    category: "Automation",
-    icon: Zap,
-    items: ["n8n", "Make (Integromat)", "API Automation", "Web Scraping"],
+    category: "Content & Social",
+    items: ["Meta Business Suite", "Buffer", "Hootsuite", "Canva"],
   },
 ];
 
@@ -45,40 +27,34 @@ const Skills = () => {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.15 });
 
   return (
-    <section id="skills" className="bg-secondary/30" ref={ref}>
+    <section id="skills" className="relative" ref={ref}>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
+
       <div className="section-container">
-        {/* Section header */}
-        <div className={`text-center mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <p className="text-accent font-medium mb-2">What I Do</p>
+        <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <p className="section-label">
+            <span className="w-8 h-px bg-accent inline-block" />
+            Toolkit
+          </p>
           <h2 className="section-title">Skills & Technologies</h2>
-          <p className="section-subtitle max-w-2xl mx-auto">
-            A comprehensive toolkit built over years of hands-on experience 
-            in front-end development and web automation.
+          <p className="section-subtitle max-w-2xl mx-auto mt-4">
+            A comprehensive stack spanning web development, paid media, analytics, and automation.
           </p>
         </div>
 
-        {/* Skills grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skills.map((skill, index) => (
+        <div className="max-w-4xl mx-auto space-y-6">
+          {skillCategories.map((group, index) => (
             <div
-              key={skill.category}
-              className={`bg-card p-6 rounded-xl border border-border card-hover transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-              style={{ transitionDelay: `${200 + index * 100}ms` }}
+              key={group.category}
+              className={`p-6 rounded-xl bg-card border border-border transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              style={{ transitionDelay: `${200 + index * 80}ms` }}
             >
-              {/* Category header */}
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-accent/10 text-accent">
-                  <skill.icon size={20} />
-                </div>
-                <h3 className="font-display font-semibold text-foreground">
-                  {skill.category}
-                </h3>
-              </div>
-
-              {/* Skill items */}
-              <div className="flex flex-wrap gap-2">
-                {skill.items.map((item) => (
-                  <span key={item} className="skill-badge text-xs">
+              <h3 className="font-display font-semibold text-sm text-accent mb-4 tracking-wide uppercase">
+                {group.category}
+              </h3>
+              <div className="flex flex-wrap gap-2.5">
+                {group.items.map((item) => (
+                  <span key={item} className="skill-badge">
                     {item}
                   </span>
                 ))}

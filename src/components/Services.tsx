@@ -1,66 +1,74 @@
-import { Code, Palette, Globe, Cpu } from "lucide-react";
+import { Globe, TrendingUp, Megaphone, Workflow, BarChart3, Code } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const services = [
   {
-    icon: Code,
-    title: "Front-End Website Development",
-    description: "Building responsive, performant websites using modern technologies like React, TypeScript, and TailwindCSS.",
+    icon: TrendingUp,
+    title: "Web Performance Optimization",
+    description: "Speed optimization, Core Web Vitals improvement, and technical audits for better rankings and conversions.",
   },
   {
-    icon: Palette,
-    title: "UI/UX Implementation",
-    description: "Translating designs into pixel-perfect, accessible interfaces with smooth animations and intuitive interactions.",
+    icon: Megaphone,
+    title: "Paid Media Management",
+    description: "Google Ads & Meta Ads campaigns with data-driven targeting, A/B testing, and ROI optimization.",
+  },
+  {
+    icon: BarChart3,
+    title: "SEO & Analytics",
+    description: "Technical SEO, GA4 setup, Search Console optimization, and data-informed growth strategies.",
+  },
+  {
+    icon: Workflow,
+    title: "Marketing Automation",
+    description: "n8n workflows, CRM integrations, and automated lead nurturing systems that scale.",
+  },
+  {
+    icon: Code,
+    title: "Front-End Development",
+    description: "Modern websites built with React, WordPress, and Shopify — responsive, fast, and conversion-optimized.",
   },
   {
     icon: Globe,
-    title: "WordPress Customization",
-    description: "Custom themes, plugins, and tailored solutions to extend WordPress functionality for your specific needs.",
-  },
-  {
-    icon: Cpu,
-    title: "Front-End Interfaces for Automation Systems",
-    description: "Creating user-friendly dashboards and control panels for AI and automation workflows.",
+    title: "AI Content Systems",
+    description: "AI-powered content workflows for social media, email campaigns, and scalable content operations.",
   },
 ];
 
 const Services = () => {
-  const { ref, isVisible } = useScrollAnimation({ threshold: 0.15 });
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.1 });
 
   return (
-    <section id="services" className="py-20 bg-muted/30" ref={ref}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+    <section id="services" className="relative" ref={ref}>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
+
+      <div className="section-container">
         <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground mb-4">
-            What I Can Help You With
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Specialized services to bring your digital vision to life
+          <p className="section-label">
+            <span className="w-8 h-px bg-accent inline-block" />
+            Services
+          </p>
+          <h2 className="section-title">What I Can Help You With</h2>
+          <p className="section-subtitle max-w-2xl mx-auto mt-4">
+            End-to-end solutions for businesses looking to grow their digital presence and optimize their operations.
           </p>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {services.map((service, index) => (
             <div
               key={service.title}
-              className={`group p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-elegant transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-              style={{ transitionDelay: `${300 + index * 100}ms` }}
+              className={`group p-6 rounded-xl bg-card border border-border hover:border-accent/30 card-hover transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              style={{ transitionDelay: `${200 + index * 80}ms` }}
             >
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
-                  <service.icon className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">
-                    {service.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {service.description}
-                  </p>
-                </div>
+              <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-accent/10 text-accent group-hover:bg-accent group-hover:text-accent-foreground transition-colors duration-300 mb-4">
+                <service.icon size={20} />
               </div>
+              <h3 className="text-base font-semibold font-display text-foreground mb-2">
+                {service.title}
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {service.description}
+              </p>
             </div>
           ))}
         </div>
