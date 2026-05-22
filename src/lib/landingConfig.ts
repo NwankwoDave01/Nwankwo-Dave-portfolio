@@ -3,7 +3,7 @@
 
 export const landingConfig = {
   // WhatsApp number in international format, digits only (no +).
-  whatsappNumber: "2348000000000",
+  whatsappNumber: "2347046114285",
 
   // Default WhatsApp opener.
   whatsappMessage:
