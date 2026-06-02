@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @layer base {
   :root {
@@ -222,6 +222,208 @@
       linear-gradient(90deg, hsl(228 12% 16% / 0.5) 1px, transparent 1px);
     background-size: 60px 60px;
   }
+}
+
+/* =====================================================
+   Editorial theme — scoped to .theme-editorial
+   Paper & Ink palette, emerald + ochre accents,
+   serif display, generous whitespace.
+   ===================================================== */
+.theme-editorial {
+  /* Paper base */
+  --background: 40 33% 96%;          /* #f5f3ee */
+  --foreground: 0 0% 8%;             /* #141414 */
+
+  --card: 40 33% 98%;
+  --card-foreground: 0 0% 8%;
+
+  --popover: 40 33% 98%;
+  --popover-foreground: 0 0% 8%;
+
+  --primary: 0 0% 8%;
+  --primary-foreground: 40 33% 96%;
+
+  --secondary: 36 22% 92%;
+  --secondary-foreground: 0 0% 18%;
+
+  --muted: 36 22% 92%;
+  --muted-foreground: 0 0% 38%;
+
+  /* Accent — deep emerald (premium consultant) */
+  --accent: 158 64% 24%;
+  --accent-foreground: 40 33% 96%;
+  --accent-light: 158 40% 90%;
+
+  /* Secondary accent — warm ochre (editorial highlight) */
+  --ochre: 35 65% 48%;
+  --ochre-soft: 35 70% 86%;
+
+  --destructive: 0 65% 42%;
+  --destructive-foreground: 40 33% 96%;
+
+  --border: 36 18% 86%;
+  --input: 36 18% 86%;
+  --ring: 158 64% 24%;
+
+  --glow-accent: 0 0 0 1px hsl(158 64% 24% / 0.08);
+  --glow-accent-strong: 0 10px 40px -10px hsl(158 64% 24% / 0.25);
+
+  --glass-bg: hsl(40 33% 96% / 0.82);
+  --glass-border: hsl(0 0% 8% / 0.06);
+
+  --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.04);
+  --shadow-md: 0 2px 8px -2px hsl(0 0% 0% / 0.06);
+  --shadow-lg: 0 10px 28px -10px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0 24px 48px -16px hsl(0 0% 0% / 0.14);
+  --shadow-accent: 0 6px 20px -6px hsl(158 64% 24% / 0.30);
+
+  color: hsl(var(--foreground));
+  background: hsl(var(--background));
+
+  /* Subtle paper grain */
+  background-image:
+    radial-gradient(hsl(0 0% 0% / 0.018) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+/* Dark hero band inside the editorial theme */
+.theme-editorial .ink-band {
+  background: hsl(0 0% 8%);
+  color: hsl(40 33% 96%);
+  --foreground: 40 33% 96%;
+  --muted-foreground: 40 15% 70%;
+  --border: 0 0% 18%;
+  --card: 0 0% 12%;
+}
+
+.theme-editorial .font-serif-display {
+  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}
+
+.theme-editorial h1,
+.theme-editorial h2,
+.theme-editorial .editorial-headline {
+  font-family: 'Instrument Serif', 'Times New Roman', serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.theme-editorial .section-label {
+  @apply inline-flex items-center gap-2 text-xs font-medium tracking-[0.18em] uppercase mb-5;
+  color: hsl(var(--foreground) / 0.55);
+  font-family: 'Inter', sans-serif;
+}
+
+.theme-editorial .section-title {
+  @apply text-4xl md:text-5xl lg:text-6xl mb-5;
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+}
+
+.theme-editorial .gradient-text {
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  color: hsl(var(--accent));
+  font-style: italic;
+}
+
+.theme-editorial .btn-hero {
+  background: hsl(0 0% 8%);
+  color: hsl(40 33% 96%);
+  border-radius: 999px;
+  box-shadow: 0 2px 10px -2px hsl(0 0% 0% / 0.2), inset 0 1px 0 hsl(0 0% 100% / 0.08);
+}
+.theme-editorial .btn-hero:hover {
+  background: hsl(158 64% 24%);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px -8px hsl(158 64% 24% / 0.45);
+}
+
+.theme-editorial .ink-band .btn-hero {
+  background: hsl(40 33% 96%);
+  color: hsl(0 0% 8%);
+}
+.theme-editorial .ink-band .btn-hero:hover {
+  background: hsl(158 64% 90%);
+  color: hsl(158 64% 18%);
+}
+
+.theme-editorial .btn-outline-hero {
+  border-radius: 999px;
+  border-color: hsl(0 0% 8% / 0.18);
+  color: hsl(var(--foreground));
+}
+.theme-editorial .btn-outline-hero:hover {
+  border-color: hsl(0 0% 8%);
+  color: hsl(0 0% 8%);
+  box-shadow: none;
+}
+
+.theme-editorial .glass-card {
+  background: hsl(40 33% 96% / 0.78);
+  border: 1px solid hsl(0 0% 8% / 0.08);
+  backdrop-filter: blur(12px) saturate(120%);
+}
+
+.theme-editorial .skill-badge {
+  background: transparent;
+  border: 1px solid hsl(0 0% 8% / 0.14);
+  color: hsl(0 0% 30%);
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+}
+.theme-editorial .skill-badge:hover {
+  border-color: hsl(var(--accent));
+  color: hsl(var(--accent));
+  box-shadow: none;
+}
+
+/* Editorial card — barely-there border, no heavy shadow */
+.theme-editorial .editorial-card {
+  background: transparent;
+  border: 1px solid transparent;
+  border-top: 1px solid hsl(0 0% 8% / 0.12);
+  border-radius: 0;
+  padding: 1.75rem 0;
+  transition: padding-left 0.4s ease;
+}
+.theme-editorial .editorial-card:hover {
+  padding-left: 0.5rem;
+}
+
+.theme-editorial .quiet-card {
+  background: hsl(40 33% 98%);
+  border: 1px solid hsl(0 0% 8% / 0.08);
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px hsl(0 0% 0% / 0.03);
+}
+
+.theme-editorial .accent-rule {
+  background: linear-gradient(90deg, hsl(var(--accent)), hsl(var(--ochre)));
+  height: 2px;
+  width: 48px;
+}
+
+.theme-editorial .grid-pattern { display: none; }
+.theme-editorial .glow-orb { display: none; }
+
+/* Underline accent for emphasis words */
+.theme-editorial .underline-ochre {
+  background-image: linear-gradient(transparent 62%, hsl(35 70% 70% / 0.55) 62%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 0 0.1em;
+}
+
+.theme-editorial input,
+.theme-editorial textarea {
+  background: hsl(40 33% 99%);
 }
 
 @layer utilities {
