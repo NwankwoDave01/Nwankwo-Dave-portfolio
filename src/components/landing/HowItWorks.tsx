@@ -7,20 +7,31 @@ const steps = [
 
 const HowItWorks = () => (
   <section className="section-container">
-    <div className="text-center mb-12">
+    <div className="max-w-3xl mb-16">
       <p className="section-label">
-        <span className="w-8 h-px bg-accent inline-block" />
-        How it works
+        <span className="accent-rule" />
+        The process
       </p>
-      <h2 className="section-title">Simple, transparent process</h2>
+      <h2 className="section-title">
+        A calm, transparent way<br/>of <em className="font-serif italic text-accent">working together</em>.
+      </h2>
     </div>
 
-    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
-      {steps.map((s) => (
-        <div key={s.n} className="p-6 rounded-2xl bg-card border border-border">
-          <div className="font-mono text-xs text-accent mb-4">{s.n}</div>
-          <h3 className="font-display font-semibold text-base text-foreground mb-2">{s.title}</h3>
-          <p className="text-sm text-muted-foreground leading-relaxed">{s.body}</p>
+    <div className="max-w-5xl mx-auto">
+      {steps.map((s, i) => (
+        <div
+          key={s.n}
+          className="grid md:grid-cols-12 gap-6 md:gap-10 py-8 md:py-10 border-t border-foreground/10 last:border-b group"
+        >
+          <div className="md:col-span-2 font-serif text-5xl md:text-6xl text-foreground/25 group-hover:text-accent transition-colors leading-none">
+            {s.n}
+          </div>
+          <h3 className="md:col-span-4 font-serif text-2xl md:text-3xl text-foreground leading-tight">
+            {s.title}
+          </h3>
+          <p className="md:col-span-6 text-base text-muted-foreground leading-relaxed md:pt-2">
+            {s.body}
+          </p>
         </div>
       ))}
     </div>
