@@ -37,43 +37,62 @@ const services = [
 ];
 
 const ServiceOffer = () => (
-  <section className="section-container">
-    <div className="text-center mb-12">
-      <p className="section-label">
-        <span className="w-8 h-px bg-accent inline-block" />
-        What you get
-      </p>
-      <h2 className="section-title">Three services. One growth partner.</h2>
-      <p className="section-subtitle max-w-2xl mx-auto mt-4">
-        Pick one or combine all three — built to work together as a single growth engine.
-      </p>
+  <section className="section-container border-t border-foreground/10">
+    <div className="grid lg:grid-cols-12 gap-10 mb-16 items-end">
+      <div className="lg:col-span-7">
+        <p className="section-label">
+          <span className="accent-rule" />
+          The practice
+        </p>
+        <h2 className="section-title">
+          Three disciplines.<br/>
+          One <em className="font-serif italic text-accent">growth partner</em>.
+        </h2>
+      </div>
+      <div className="lg:col-span-4 lg:col-start-9">
+        <p className="text-base text-muted-foreground leading-relaxed">
+          Pick one — or combine all three as a single, compounding growth engine designed around your numbers.
+        </p>
+      </div>
     </div>
 
-    <div className="grid md:grid-cols-3 gap-5 max-w-6xl mx-auto">
-      {services.map((s) => (
-        <div key={s.title} className="group p-6 md:p-7 rounded-2xl bg-card border border-border hover:border-accent/30 card-hover flex flex-col">
-          <div className="w-11 h-11 flex items-center justify-center rounded-xl bg-accent/10 text-accent group-hover:bg-accent group-hover:text-accent-foreground transition-colors mb-5">
-            <s.icon size={22} />
+    <div className="max-w-6xl mx-auto">
+      {services.map((s, i) => (
+        <div
+          key={s.title}
+          className="group grid md:grid-cols-12 gap-6 md:gap-10 py-10 border-t border-foreground/10 last:border-b"
+        >
+          <div className="md:col-span-1">
+            <span className="font-mono text-xs text-muted-foreground">0{i + 1}</span>
           </div>
-          <h3 className="font-display font-bold text-lg text-foreground mb-2">{s.title}</h3>
-          <p className="text-sm text-muted-foreground mb-5 leading-relaxed">{s.pitch}</p>
-          <ul className="space-y-2.5 mb-5 flex-1">
+          <div className="md:col-span-4">
+            <div className="w-10 h-10 flex items-center justify-center rounded-full border border-foreground/15 text-foreground/70 group-hover:border-accent group-hover:text-accent transition-colors mb-5">
+              <s.icon size={18} />
+            </div>
+            <h3 className="font-serif text-3xl md:text-4xl text-foreground leading-tight mb-3">
+              {s.title}
+            </h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">{s.pitch}</p>
+          </div>
+          <ul className="md:col-span-5 space-y-3">
             {s.deliverables.map((d) => (
-              <li key={d} className="flex items-start gap-2.5 text-sm text-foreground/90">
+              <li key={d} className="flex items-start gap-3 text-sm text-foreground/85 leading-relaxed">
                 <Check size={14} className="text-accent mt-1 flex-shrink-0" />
                 <span>{d}</span>
               </li>
             ))}
           </ul>
-          <div className="pt-4 border-t border-border/60">
-            <p className="text-xs text-accent font-medium">{s.outcome}</p>
+          <div className="md:col-span-2 md:border-l md:border-foreground/10 md:pl-6">
+            <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-2">Outcome</p>
+            <p className="font-serif italic text-base text-accent leading-snug">{s.outcome}</p>
           </div>
         </div>
       ))}
     </div>
 
-    <div className="text-center mt-10">
-      <a href="#quote" className="btn-hero">Get a Free Quote</a>
+    <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href="#quote" className="btn-hero">Start a project</a>
+      <span className="text-xs text-muted-foreground">Free consultation · No obligation</span>
     </div>
   </section>
 );
