@@ -21,10 +21,12 @@ const Landing = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="theme-editorial min-h-screen bg-background">
       <LandingNav />
       <main>
-        <LandingHero />
+        <div className="ink-band">
+          <LandingHero />
+        </div>
         <TrustStrip />
         <ProblemOutcome />
         <ServiceOffer />
