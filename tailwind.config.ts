@@ -16,6 +16,7 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         display: ['Space Grotesk', 'sans-serif'],
+        serif: ['Instrument Serif', 'Times New Roman', 'serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
       colors: {
@@ -44,6 +45,10 @@ export default {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
           light: "hsl(var(--accent-light))",
+        },
+        ochre: {
+          DEFAULT: "hsl(var(--ochre, 35 65% 48%))",
+          soft: "hsl(var(--ochre-soft, 35 70% 86%))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
