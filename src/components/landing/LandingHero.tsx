@@ -21,11 +21,11 @@ const LandingHero = () => (
       <div className="grid lg:grid-cols-12 gap-10 items-end">
         <h1 className="lg:col-span-9 text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] leading-[1.02] tracking-tight text-white">
           Helping businesses grow with{" "}
-          <em className="text-emerald-300/95 not-italic font-serif italic">
+          <em className="text-emerald-300 not-italic font-serif italic">
             modern websites, ads
           </em>{" "}
           &amp;{" "}
-          <em className="text-amber-200/90 not-italic font-serif italic">
+          <em className="text-amber-200 not-italic font-serif italic">
             AI&nbsp;content
           </em>
           <span className="text-emerald-300">.</span>
@@ -55,7 +55,7 @@ const LandingHero = () => (
       </div>
 
       {/* Footnote / proof line */}
-      <div className="mt-20 pt-8 border-t border-white/8 grid sm:grid-cols-3 gap-6 text-xs text-white/55">
+      <div className="mt-20 pt-8 border-t border-white/10 grid sm:grid-cols-3 gap-6 text-xs text-white/55">
         <p><span className="text-white/85 font-medium">50+ leads</span> generated for paid-media clients</p>
         <p><span className="text-white/85 font-medium">+35% traffic</span> via SEO & performance work</p>
         <p><span className="text-white/85 font-medium">2–4 weeks</span> typical delivery, fixed scope</p>
