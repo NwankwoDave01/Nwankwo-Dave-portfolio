@@ -5,6 +5,7 @@ import TrustStrip from "@/components/landing/TrustStrip";
 import ProblemOutcome from "@/components/landing/ProblemOutcome";
 import ServiceOffer from "@/components/landing/ServiceOffer";
 import HowItWorks from "@/components/landing/HowItWorks";
+import FounderNote from "@/components/landing/FounderNote";
 import ProofSelected from "@/components/landing/ProofSelected";
 import FAQ from "@/components/landing/FAQ";
 import QuoteForm from "@/components/landing/QuoteForm";
@@ -21,14 +22,17 @@ const Landing = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="theme-editorial min-h-screen bg-background">
       <LandingNav />
       <main>
-        <LandingHero />
+        <div className="ink-band">
+          <LandingHero />
+        </div>
         <TrustStrip />
         <ProblemOutcome />
         <ServiceOffer />
         <HowItWorks />
+        <FounderNote />
         <ProofSelected />
         <FAQ />
 
