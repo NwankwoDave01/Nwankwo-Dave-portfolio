@@ -9,28 +9,35 @@ const faqs = [
 ];
 
 const FAQ = () => (
-  <section className="section-container">
-    <div className="text-center mb-10">
-      <p className="section-label">
-        <span className="w-8 h-px bg-accent inline-block" />
-        FAQ
-      </p>
-      <h2 className="section-title">Questions, answered</h2>
-    </div>
+  <section className="section-container border-t border-foreground/10">
+    <div className="grid lg:grid-cols-12 gap-12">
+      <div className="lg:col-span-4">
+        <p className="section-label">
+          <span className="accent-rule" />
+          FAQ
+        </p>
+        <h2 className="section-title">
+          Questions,<br/><em className="font-serif italic text-accent">answered</em>.
+        </h2>
+        <p className="text-sm text-muted-foreground mt-6 max-w-xs leading-relaxed">
+          Don't see yours? Send a quick WhatsApp message — usually answered within an hour.
+        </p>
+      </div>
 
-    <div className="max-w-2xl mx-auto">
-      <Accordion type="single" collapsible className="w-full">
-        {faqs.map((f, i) => (
-          <AccordionItem key={f.q} value={`item-${i}`} className="border-border">
-            <AccordionTrigger className="text-left font-display font-semibold text-foreground hover:text-accent">
-              {f.q}
-            </AccordionTrigger>
-            <AccordionContent className="text-sm text-muted-foreground leading-relaxed">
-              {f.a}
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
+      <div className="lg:col-span-7 lg:col-start-6">
+        <Accordion type="single" collapsible className="w-full">
+          {faqs.map((f, i) => (
+            <AccordionItem key={f.q} value={`item-${i}`} className="border-foreground/10">
+              <AccordionTrigger className="text-left font-serif text-lg md:text-xl text-foreground hover:text-accent hover:no-underline py-6">
+                {f.q}
+              </AccordionTrigger>
+              <AccordionContent className="text-base text-muted-foreground leading-relaxed pb-6">
+                {f.a}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
     </div>
   </section>
 );
