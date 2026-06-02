@@ -23,14 +23,14 @@ const WhatsAppButton = ({
   };
 
   const base =
-    "inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm tracking-wide transition-all duration-300 ease-out";
+    "inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-medium text-sm tracking-wide transition-all duration-300 ease-out";
 
   const styles = {
     solid:
-      "bg-emerald-500 text-white hover:bg-emerald-400 shadow-[0_4px_20px_0_hsl(160_84%_45%/0.3)]",
+      "bg-emerald-600 text-white hover:bg-emerald-700 shadow-[0_6px_20px_-6px_hsl(160_84%_30%/0.4)]",
     outline:
-      "border border-border bg-transparent text-foreground hover:border-emerald-400 hover:text-emerald-400",
-    ghost: "text-emerald-400 hover:text-emerald-300",
+      "border border-foreground/20 bg-transparent text-foreground hover:border-emerald-600 hover:text-emerald-700",
+    ghost: "text-foreground/70 hover:text-emerald-700",
   }[variant];
 
   return (
