@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { buildWhatsAppUrl, trackPixel } from "@/lib/landingConfig";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 
 const SERVICES = ["Website / App", "Digital Marketing", "AI Video / Content", "Not sure yet"] as const;
 const BUDGETS = ["< $1k", "$1k – $3k", "$3k – $7k", "$7k+"] as const;
@@ -22,6 +24,7 @@ const schema = z.object({
   email: z.string().trim().email("Valid email required").max(160),
   whatsapp: z.string().trim().min(6, "Phone is required").max(30),
   company: z.string().trim().max(120).optional().or(z.literal("")),
+  website: z.string().max(0).optional().or(z.literal("")), // honeypot
 });
 
 type FormData = z.infer<typeof schema>;
@@ -87,7 +90,7 @@ const QuoteForm = () => {
 
   const back = () => setStep((s) => (s > 1 ? ((s - 1) as 1 | 2 | 3) : s));
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = async (data: FormData) => {
     const lines = [
       "New quote request from landing page",
       "",
@@ -104,6 +107,38 @@ const QuoteForm = () => {
       .join("\n");
 
     trackPixel("Lead", { step: "form_submit", service: data.service, budget: data.budget });
+
+    // Capture UTM params + referrer for attribution
+    const params = new URLSearchParams(window.location.search);
+    const isSpam = Boolean(data.website && data.website.length > 0);
+
+    // Save to Supabase first so the lead is never lost.
+    try {
+      const { error } = await supabase.from("leads").insert({
+        name: data.name,
+        email: data.email,
+        whatsapp: data.whatsapp,
+        company: data.company || null,
+        service: data.service,
+        budget: data.budget,
+        timeline: data.timeline,
+        context: data.context || null,
+        source: "work-with-dave",
+        status: isSpam ? "spam" : "new",
+        utm_source: params.get("utm_source"),
+        utm_medium: params.get("utm_medium"),
+        utm_campaign: params.get("utm_campaign"),
+        referrer: document.referrer || null,
+        user_agent: navigator.userAgent.slice(0, 500),
+      });
+      if (error) throw error;
+    } catch (err) {
+      console.error("Lead save failed:", err);
+      toast({
+        title: "We saved your details on WhatsApp instead",
+        description: "Continuing to WhatsApp so your request still reaches Dave.",
+      });
+    }
 
     // Open WhatsApp in a new tab with structured details
     window.open(buildWhatsAppUrl(lines), "_blank", "noopener,noreferrer");
@@ -251,6 +286,16 @@ const QuoteForm = () => {
                 <Input id="company" maxLength={120} placeholder="Company name" {...register("company")} />
               </div>
             </div>
+
+            {/* Honeypot — hidden from real users, bots tend to fill it */}
+            <input
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              style={{ position: "absolute", left: "-10000px", width: 1, height: 1, opacity: 0 }}
+              {...register("website")}
+            />
 
             <p className="text-xs text-muted-foreground/70">
               Submitting opens WhatsApp pre-filled with your request so we can chat right away.
