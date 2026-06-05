@@ -1,67 +1,38 @@
-# Landing Page — Lean Implementation Plan (Approved Scope)
+## Diagnosis
 
-Build only `/work-with-dave` plus `/thank-you`. Postpone service variants, CAPI, webhooks, heavy SEO, and analytics abstraction. Prioritize launch speed, mobile-first UX, and conversion.
+The Supabase wiring is correct. I ran a live insert against your project using the exact publishable key in `src/integrations/supabase/client.ts` and got `HTTP 201` — a row named `"diag test"` is now in your `leads` table. So:
 
----
+- URL in use: `https://ogpjwkcivbewnotmzxgy.supabase.co` ✓
+- Anon/publishable key in use: `sb_publishable_3EsMAGHPbsU2KxM3wvYn0g_uFDNRvBE` ✓
+- `@supabase/supabase-js` v2.107 supports this key format ✓
+- `QuoteForm.tsx` calls `supabase.from("leads").insert(...)` before WhatsApp opens ✓
+- No env vars needed — values are hardcoded (publishable key is safe in the browser)
+- RLS anon-insert policy works ✓
 
-## What ships
+The most likely cause your live submission produced no row: **the Supabase integration code has not been published yet**, so `davecreates.lovable.app` is still running the old WhatsApp-only build. The preview build (`id-preview--…lovable.app`) does have it.
 
-- **Route**: `/work-with-dave` (campaign landing) and `/thank-you` (post-submit).
-- **Standalone experience** — no portfolio navbar. Minimal top bar with logo + WhatsApp.
-- **Hero**: outcome-led headline → *"Helping Businesses Grow With Modern Websites, Ads & AI Content"*. Primary CTA "Get a Free Quote", secondary "Chat on WhatsApp", trust microcopy.
-- **Sections** (in order): Hero → Trust strip → Problem→Outcome (3 cards) → Services (3: Web/App, Digital Marketing, AI Video) → How it works (4 steps) → Selected work (reuses portfolio case studies, CTA "See Recent Client Work" → opens `/` in new tab) → FAQ → Final conversion block (multi-step form + WhatsApp/email) → Slim footer.
-- **Sticky mobile CTA bar**: Get Quote + WhatsApp.
-- **Multi-step quote form** (3 steps, RHF + zod, shadcn): service → budget/timeline/context → contact. On submit: format details into WhatsApp deep link, navigate to `/thank-you` (fires Meta Pixel `Lead`).
-- **WhatsApp integration**: pre-filled `wa.me` links everywhere, configurable phone number in one config file.
-- **Meta Pixel**: snippet placeholder in `index.html` driven by config; `PageView` on load, `Lead` on `/thank-you`. No-ops cleanly if pixel ID is empty.
-- **Responsive, mobile-first**: tested at 360/390/768/1024/1440.
+## Step 1 — Verify which environment you tested
 
-## What's postponed (per your direction)
+1. Open Supabase Studio → Table Editor → `leads`. Confirm the `"diag test"` row I just inserted is visible. (Proves backend is healthy.)
+2. Submit a real test on the **preview URL** (`https://id-preview--3c4a0927-01d8-434f-af43-d9be7369f0e7.lovable.app/work-with-dave`), not the published domain. If a row appears → the only remaining action is **Publish**.
+3. If you tested on `davecreates.lovable.app` and no row appeared, that's expected — that domain still serves the previous version. Publish to fix.
 
-- `/services/*` variants, Lovable Cloud + edge functions, n8n webhooks, Meta CAPI, GA4 abstraction, JSON-LD, per-variant SEO, pricing page, testimonials section (skipped until real quotes available).
+## Step 2 — Add diagnostics (only if Step 1 still fails)
 
----
+Tighten `QuoteForm.tsx` so any future failure is obvious:
 
-## Files to create
+- Log the full Supabase error object to the browser console (`code`, `message`, `details`, `hint`) instead of swallowing it.
+- On error, show a non-dismissive toast that says "Could not save lead — continuing to WhatsApp" so you can spot it during QA.
+- Replace `navigator.userAgent.slice(0, 500)` truncation with a check that won't trigger a column-length constraint (already 500 char limit — fine, just verify schema matches).
 
-```text
-src/lib/landingConfig.ts         WhatsApp number, pixel ID, email, helpers
-src/pages/Landing.tsx            /work-with-dave
-src/pages/ThankYou.tsx           /thank-you
-src/components/landing/
-  LandingNav.tsx                 logo + WhatsApp only
-  LandingHero.tsx
-  TrustStrip.tsx
-  ProblemOutcome.tsx
-  ServiceOffer.tsx
-  HowItWorks.tsx
-  ProofSelected.tsx              reuses portfolio case study data
-  FAQ.tsx                        shadcn accordion
-  QuoteForm.tsx                  multi-step, RHF + zod
-  WhatsAppButton.tsx
-  StickyMobileBar.tsx
-  LandingFooter.tsx
-```
+No schema, trigger, or edge-function changes are needed.
 
-## Files to edit
+## Step 3 — Publish
 
-- `src/App.tsx` — add `/work-with-dave` and `/thank-you` routes above the catch-all, lazy-loaded.
-- `index.html` — add Meta Pixel snippet (commented placeholder pixel ID for the user to fill in).
+Once the preview submission produces a row, click **Publish** so `davecreates.lovable.app` gets the new build. WhatsApp users will then hit Supabase → trigger → Edge Function → Resend email automatically.
 
-## Reused from existing portfolio
+## What I will NOT change
 
-- Design tokens (`btn-hero`, `glass-card`, `gradient-text`, `section-container`, etc.) — no changes to `index.css`.
-- `useScrollAnimation` hook.
-- Case study data (copied into Landing's proof config so the landing stays decoupled).
-
----
-
-## Config-driven (user fills in after launch)
-
-- `whatsappNumber` — placeholder `2348000000000` to swap.
-- `metaPixelId` — empty by default; pixel script no-ops until set.
-- `email` — already wired to `ebukadave2009@gmail.com`.
-
-## Lead handling without backend
-
-Form submit builds a structured WhatsApp message ("New quote — Service: X / Budget: Y / Timeline: Z / Notes: …") and opens `wa.me` in a new tab while routing to `/thank-you`. Lean, trackable, no backend required. We can later add Lovable Cloud + email when volume justifies it.
+- Supabase client file (already correct)
+- SQL schema, trigger, Edge Function (already deployed and proven to work end-to-end by the diag insert; once a real row arrives, the trigger will fire and you'll get the Resend email)
+- WhatsApp redirect behavior

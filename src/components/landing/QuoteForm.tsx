@@ -132,11 +132,20 @@ const QuoteForm = () => {
         user_agent: navigator.userAgent.slice(0, 500),
       });
       if (error) throw error;
+      console.info("[lead] saved to Supabase");
     } catch (err) {
-      console.error("Lead save failed:", err);
+      const e = err as { code?: string; message?: string; details?: string; hint?: string };
+      console.error("[lead] save failed", {
+        code: e?.code,
+        message: e?.message,
+        details: e?.details,
+        hint: e?.hint,
+        raw: err,
+      });
       toast({
-        title: "We saved your details on WhatsApp instead",
-        description: "Continuing to WhatsApp so your request still reaches Dave.",
+        title: "Could not save lead — continuing to WhatsApp",
+        description: e?.message ?? "Your request will still reach Dave via WhatsApp.",
+        variant: "destructive",
       });
     }
 
